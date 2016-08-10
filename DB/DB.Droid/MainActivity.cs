@@ -12,7 +12,8 @@ using System.Collections.Generic;
 using DB.BusinessLayer.Managers;
 using System.IO;
 using Android.Util;
-using SQLite; 
+using SQLite;
+using System.Linq;
 
 namespace DB.Droid
 {  
@@ -21,8 +22,8 @@ namespace DB.Droid
 	public class MainActivity : Activity
 	{
 		int count = 1;
-        private List<Task> tasks; 
-       
+        private List<Task> tasks;
+        private List<Task> restoredTasks;
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
@@ -55,6 +56,8 @@ namespace DB.Droid
                 ids.Add(id);
             }
 
+            restoredTasks = TaskManager.GetTasks().ToList();
+
             // Get our button from the layout resource,
             // and attach an event to it
             Button button = FindViewById<Button> (Resource.Id.myButton);
@@ -68,10 +71,10 @@ namespace DB.Droid
 
                 //textTitle.Text = tasks[count % tasks.Count].Title;
                 //textTime.Text = tasks[count % tasks.Count].Alarm.Time.ToString();
-                var task = TaskManager.GetTask(ids[count%ids.Count]);
+                var task = restoredTasks[count % restoredTasks.Count];
                 textID.Text = task.ID.ToString() ;
                 textTitle.Text = task.ID.ToString() ;
-                textTime.Text = task.Alarm.Time.ToString() ; 
+                textTime.Text = task.Time.ToString() ; 
             };
              
 

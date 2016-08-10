@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text; 
+using System.Text;
 
 namespace DB.BusinessLayer
 {
-    public class Task: Contracts.BusinessEntityBase
+    public class Task : Contracts.BusinessEntityBase
     {
         private AlarmClass alarm;
 
@@ -16,10 +16,29 @@ namespace DB.BusinessLayer
 
         public bool Star { get; set; }
 
-        public AlarmClass Alarm
+        public DateTime Time
         {
-            get { return alarm; }
-            set { alarm = value; }
+            get { return alarm.Time; }
+            set
+            {
+                alarm.Time = value;
+            }
+        }
+        public bool Repeat
+        {
+            get { return alarm.Repeat; }
+            set
+            {
+                alarm.Repeat = value;
+            }
+        }
+        public bool Over
+        {
+            get { return alarm.Over; }
+            set
+            {
+                alarm.Over = value;
+            }
         }
 
 
@@ -35,7 +54,7 @@ namespace DB.BusinessLayer
         {
             this.alarm = new AlarmClass();
         }
-        public Task(string title="", string note="", bool done=false, bool star = false, bool repeat = false, bool over=false)
+        public Task(string title = "", string note = "", bool done = false, bool star = false, bool repeat = false, bool over = false)
         {
             this.alarm = new AlarmClass();
 
